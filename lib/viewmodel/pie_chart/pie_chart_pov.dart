@@ -70,5 +70,3 @@ class PieChartPov extends ChangeNotifier {
   // }
 
 }
-
-ValueNotifier<List<TransationModel>> todayListner = ValueNotifier([]);
