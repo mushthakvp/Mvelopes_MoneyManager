@@ -3,7 +3,6 @@ import 'package:mvelopes/viewmodel/add_edit/hive_impl.dart';
 import 'package:provider/provider.dart';
 import '../../model/add_edit/model/add_edit.dart';
 import '../../utilities/color/colors.dart';
-import '../../view/home_screen/home_screen.dart';
 
 class AddEditPov extends ChangeNotifier {
   final notesController = TextEditingController();
@@ -72,11 +71,9 @@ class AddEditPov extends ChangeNotifier {
 
       await Provider.of<HiveImpl>(context, listen: false).addDetails(allData);
       context.read<HiveImpl>().refreshUi();
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const HomeScreen()),
-        ),
-      );
+      notesController.text = '';
+      amountController.text = '';
+      Navigator.of(context).pop();
     }
   }
 }

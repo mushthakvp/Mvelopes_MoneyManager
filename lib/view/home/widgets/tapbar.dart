@@ -14,11 +14,11 @@ class Tapbar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _tapBarItem(name: 'Home', icon: CupertinoIcons.home, idx: 0, ter: 5, context: context),
-          _tapBarItem(name: 'Income', icon: FontAwesomeIcons.sackDollar, idx: 1, ter: 0, context: context),
-          _tapBarItem(name: 'Expense', icon: FontAwesomeIcons.wallet, idx: 2, ter: 0, context: context),
-          _tapBarItem(name: 'Borrow', icon: FontAwesomeIcons.handshake, idx: 3, ter: 0, context: context),
-          _tapBarItem(name: 'Lend', icon: FontAwesomeIcons.coins, idx: 4, ter: 0, context: context),
+          _tapBarItem(name: 'Home', icon: CupertinoIcons.home, idx: 4, ter: 5, context: context),
+          _tapBarItem(name: 'Income', icon: FontAwesomeIcons.sackDollar, idx: 0, ter: 0, context: context),
+          _tapBarItem(name: 'Expense', icon: FontAwesomeIcons.wallet, idx: 1, ter: 0, context: context),
+          _tapBarItem(name: 'Borrow', icon: FontAwesomeIcons.handshake, idx: 2, ter: 0, context: context),
+          _tapBarItem(name: 'Lend', icon: FontAwesomeIcons.coins, idx: 3, ter: 0, context: context),
         ],
       ),
     );

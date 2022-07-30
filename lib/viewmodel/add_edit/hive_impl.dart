@@ -40,7 +40,18 @@ class HiveImpl extends AddEditService with ChangeNotifier {
     obj.put(value.id, value);
   }
 
+  double recentTotal = 0;
+  double expenseTotal = 0;
+  double incomeTotal = 0;
+  double lendTotal = 0;
+  double borrowTotal = 0;
+
   refreshUi() async {
+    recentTotal = 0;
+    expenseTotal = 0;
+    incomeTotal = 0;
+    lendTotal = 0;
+    borrowTotal = 0;
     recentList.clear();
     incomeList.clear();
     expenceList.clear();
@@ -49,40 +60,22 @@ class HiveImpl extends AddEditService with ChangeNotifier {
     final data = await getDeatails();
     recentList.addAll(data);
     Future.forEach(data, (TransationModel dbValues) {
+      recentTotal = recentTotal + dbValues.amount;
       if (dbValues.type == CategoryType.borrow) {
+        borrowTotal = borrowTotal + dbValues.amount;
         borrowList.add(dbValues);
       } else if (dbValues.type == CategoryType.lend) {
+        lendTotal = lendTotal + dbValues.amount;
         lendList.add(dbValues);
       } else if (dbValues.type == CategoryType.income) {
+        incomeTotal = incomeTotal + dbValues.amount;
         incomeList.add(dbValues);
       } else if (dbValues.type == CategoryType.expense) {
+        expenseTotal = expenseTotal + dbValues.amount;
         expenceList.add(dbValues);
       }
     });
 
     notifyListeners();
-  }
-
-  returnList(int index) {
-    switch (index) {
-      case 0:
-        notifyListeners();
-        return recentList;
-      case 1:
-        notifyListeners();
-        return incomeList;
-
-      case 2:
-        notifyListeners();
-        return expenceList;
-
-      case 3:
-        notifyListeners();
-        return borrowList;
-
-      default:
-        notifyListeners();
-        return lendList;
-    }
   }
 }

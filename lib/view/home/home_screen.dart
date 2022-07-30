@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mvelopes/view/home_screen/widgets/appbar.dart';
-import 'package:mvelopes/view/home_screen/widgets/tapbar.dart';
 import 'package:mvelopes/viewmodel/add_edit/hive_impl.dart';
 import 'package:mvelopes/viewmodel/home/tapbar_pov.dart';
 import 'package:provider/provider.dart';
 import '../../model/add_edit/model/add_edit.dart';
 import '../../utilities/color/colors.dart';
-import '../add_edit_screen/add_edit_screen.dart';
+import '../add_edit/add_edit_screen.dart';
 import '../widgets/home_listview.dart';
+import 'widgets/appbar.dart';
 import 'widgets/info_card.dart';
+import 'widgets/rv_buttons.dart';
+import 'widgets/tapbar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class HomeScreen extends StatelessWidget {
             const AppBarWidget(),
             const InfoCardWidget(),
             const Tapbar(),
+            const RvButtons(),
             Expanded(
               child: Consumer<TapBarPov>(
                 builder: (context, value, child) {
