@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:mvelopes/view/pie_chart/pie_chart_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../model/add_edit/model/add_edit.dart';
+import '../add_edit/hive_impl.dart';
 
 class Chartdata {
   String? categories;
@@ -12,6 +16,7 @@ class PieChartPov extends ChangeNotifier {
   late TooltipBehavior tooltipBehavior;
 
   PieChartPov() {
+    ChartScreen().demoFunction();
     tooltipBehavior = TooltipBehavior(enable: true);
   }
 
@@ -56,17 +61,17 @@ class PieChartPov extends ChangeNotifier {
     return returnData;
   }
 
-  // getdata(DateTime selectedmonth) async {
-  //   String format = DateFormat('yMMMM').format(selectedmonth);
-  //   TransactionData.instance.sortListner.value.clear();
-  //   Future.forEach(TransactionData.instance.recentListener.value, (TransationModel element) {
-  //     String formatData = DateFormat('yMMMM').format(element.dateTime);
-  //     if (format == formatData) {
-  //       TransactionData.instance.sortListner.value.add(element);
-  //     }
-  //     // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-  //     TransactionData.instance.sortListner.notifyListeners();
-  //   });
-  // }
+  DateTime selectedmonth = DateTime.now();
 
+  getdata(BuildContext context) async {
+    String format = DateFormat('yMMMM').format(selectedmonth);
+    todayListNotifier.clear();
+    Future.forEach(context.read<HiveImpl>().recentList, (TransationModel element) {
+      String formatData = DateFormat('yMMMM').format(element.dateTime);
+      if (format == formatData) {
+        todayListNotifier.add(element);
+      }
+      notifyListeners();
+    });
+  }
 }

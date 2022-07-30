@@ -6,6 +6,7 @@ import 'package:mvelopes/viewmodel/add_edit/add_edit_pov.dart';
 import 'package:mvelopes/viewmodel/add_edit/hive_impl.dart';
 import 'package:mvelopes/viewmodel/home/home_pov.dart';
 import 'package:mvelopes/viewmodel/home/tapbar_pov.dart';
+import 'package:mvelopes/viewmodel/pie_chart/pie_chart_pov.dart';
 import 'package:provider/provider.dart';
 import 'model/add_edit/model/add_edit.dart';
 import 'view/splash/splash_screen.dart';
@@ -40,9 +41,13 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => HiveImpl(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => HomePov(),        ),
+          create: (BuildContext context) => HomePov(),
+        ),
         ChangeNotifierProvider(
           create: (BuildContext context) => ViewMorePov(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => PieChartPov(),
         )
       ],
       child: MaterialApp(

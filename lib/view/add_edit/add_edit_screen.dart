@@ -37,14 +37,21 @@ class AddEditScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            textFieldsCustoms(context: context),
+            const TextFieldCustomWidget(),
           ],
         ),
       ),
     );
   }
+}
 
-  Column textFieldsCustoms({required BuildContext context}) {
+class TextFieldCustomWidget extends StatelessWidget {
+  const TextFieldCustomWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         GestureDetector(
@@ -104,7 +111,7 @@ class AddEditScreen extends StatelessWidget {
           controllerText: context.read<AddEditPov>().amountController,
           type: TextInputType.number,
         ),
-        dropDownMenu(contex: context),
+        const DropDownMenuWidget(),
         const SizedBox(height: 8),
         SizedBox(
           width: MediaQuery.of(context).size.width * .84,
@@ -134,8 +141,15 @@ class AddEditScreen extends StatelessWidget {
       ],
     );
   }
+}
 
-  Container dropDownMenu({required contex}) {
+class DropDownMenuWidget extends StatelessWidget {
+  const DropDownMenuWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 30,

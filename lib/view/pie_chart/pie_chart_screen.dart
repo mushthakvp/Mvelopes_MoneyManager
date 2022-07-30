@@ -3,15 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../utilities/color/colors.dart';
-import '../../viewmodel/add_edit/hive_impl.dart';
 import '../../viewmodel/pie_chart/pie_chart_pov.dart';
 
 class ChartScreen extends StatelessWidget {
-  const ChartScreen({Key? key}) : super(key: key);
+  ChartScreen({Key? key}) : super(key: key);
+
+  final scafoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    List<Chartdata> chartData = context.read<PieChartPov>().listOfData(context.read<HiveImpl>().recentList);
+    List<Chartdata> chartData = context.read<PieChartPov>().listOfData(context.read<PieChartPov>().todayListNotifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Transaction Statistics'),
@@ -70,6 +71,10 @@ class ChartScreen extends StatelessWidget {
               ),
       ),
     );
+  }
+
+  demoFunction() {
+    Provider.of<PieChartPov>(scafoldKey.currentContext!, listen: false).getdata(scafoldKey.currentContext!);
   }
 
   // _pickDate(context) async {

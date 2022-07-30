@@ -69,7 +69,7 @@ class InfoCardWidget extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChartScreen(),
+                      builder: (context) => ChartScreen(),
                     ),
                   );
                 },
