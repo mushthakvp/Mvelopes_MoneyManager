@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvelopes/viewmodel/add_edit/hive_impl.dart';
+import 'package:mvelopes/viewmodel/settings/settings_pov.dart';
 import 'package:provider/provider.dart';
 import '../../model/add_edit/model/add_edit.dart';
 import '../../utilities/color/colors.dart';
@@ -91,6 +92,10 @@ class AddEditPov extends ChangeNotifier {
       context.read<HiveImpl>().refreshUi();
       notesController.text = '';
       amountController.text = '';
+      await context.read<SettingsPov>().notificationAdd(
+            context: context,
+            value: context.read<SettingsPov>().buttonValue,
+          );
       Navigator.of(context).pop();
     }
   }
@@ -123,9 +128,15 @@ class AddEditPov extends ChangeNotifier {
       );
 
       await Provider.of<HiveImpl>(context, listen: false).updataeDetails(allData);
-      context.read<HiveImpl>().refreshUi();
+      await context.read<HiveImpl>().refreshUi();
       notesController.text = '';
       amountController.text = '';
+
+      await context.read<SettingsPov>().notificationAdd(
+            context: context,
+            value: context.read<SettingsPov>().buttonValue,
+          );
+
       Navigator.of(context).pop();
     }
   }

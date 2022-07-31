@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mvelopes/viewmodel/settings/settings_pov.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,7 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  nextsplashScreen() {
+  nextsplashScreen() async {
+    final obj = await SharedPreferences.getInstance();
+    context.read<SettingsPov>().userName = obj.getString('userName') ?? 'User Name';
+    context.read<SettingsPov>().buttonValue = obj.getBool('notifiCation') ?? false;
     Timer(
       const Duration(seconds: 3),
       () => Navigator.of(context).pushReplacement(

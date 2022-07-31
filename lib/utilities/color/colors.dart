@@ -15,7 +15,6 @@ const greyLight = Color(0x4DCAC8C8);
 const skyBlueColor = Color(0xFF99CCFF);
 
 const colorizeColors = [whiteColor, pinkColor, indigoLightColor];
-const colorizeTextStyle = TextStyle(fontSize: 25, fontFamily: 'sea', letterSpacing: 1);
 
 class Lw {
   snBars({stColor = transparentColor, snColor = transparentColor}) {

@@ -5,6 +5,8 @@ import 'package:mvelopes/viewmodel/view_more/view_more_pov.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../../utilities/style/styles.dart';
+
 class ViewMoreScreen extends StatelessWidget {
   const ViewMoreScreen({Key? key}) : super(key: key);
 
@@ -17,6 +19,7 @@ class ViewMoreScreen extends StatelessWidget {
           builder: (BuildContext context, value, Widget? child) {
             return Text(
               value.appBarName(index: value.index),
+              style: gFontsprimary(sz: 22, cr: whiteColor),
             );
           },
         ),
@@ -41,7 +44,12 @@ class ViewMoreScreen extends StatelessWidget {
                     FontAwesomeIcons.sackDollar,
                     color: whiteColor,
                   ),
-                  title: const Text("Income"),
+                  title: Text(
+                    "Income",
+                    style: gFontsprimary(
+                      cr: whiteColor,
+                    ),
+                  ),
                   selectedColor: whiteColor,
                 ),
                 SalomonBottomBarItem(
@@ -49,7 +57,12 @@ class ViewMoreScreen extends StatelessWidget {
                     FontAwesomeIcons.wallet,
                     color: whiteColor,
                   ),
-                  title: const Text("Expense"),
+                  title: Text(
+                    "Expense",
+                    style: gFontsprimary(
+                      cr: whiteColor,
+                    ),
+                  ),
                   selectedColor: whiteColor,
                 ),
                 SalomonBottomBarItem(
@@ -57,7 +70,12 @@ class ViewMoreScreen extends StatelessWidget {
                     FontAwesomeIcons.handshake,
                     color: whiteColor,
                   ),
-                  title: const Text("Borrow"),
+                  title: Text(
+                    "Borrow",
+                    style: gFontsprimary(
+                      cr: whiteColor,
+                    ),
+                  ),
                   selectedColor: whiteColor,
                 ),
                 SalomonBottomBarItem(
@@ -65,7 +83,12 @@ class ViewMoreScreen extends StatelessWidget {
                     FontAwesomeIcons.coins,
                     color: whiteColor,
                   ),
-                  title: const Text("Lend"),
+                  title: Text(
+                    "Lend",
+                    style: gFontsprimary(
+                      cr: whiteColor,
+                    ),
+                  ),
                   selectedColor: whiteColor,
                 ),
               ],

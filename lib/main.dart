@@ -1,4 +1,6 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,10 +12,13 @@ import 'package:mvelopes/viewmodel/pie_chart/pie_chart_pov.dart';
 import 'package:provider/provider.dart';
 import 'model/add_edit/model/add_edit.dart';
 import 'view/splash/splash_screen.dart';
+import 'viewmodel/settings/settings_pov.dart';
 import 'viewmodel/view_more/view_more_pov.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(TransationModelAdapter().typeId)) {
     Hive.registerAdapter(TransationModelAdapter());
@@ -21,6 +26,24 @@ main() async {
   if (!Hive.isAdapterRegistered(CategoryTypeAdapter().typeId)) {
     Hive.registerAdapter(CategoryTypeAdapter());
   }
+  AwesomeNotifications().initialize(
+    'resource://drawable/logo',
+    [
+      NotificationChannel(
+        playSound: false,
+        enableVibration: false,
+        icon: 'resource://drawable/logo',
+        channelKey: 'persistent_notification',
+        channelName: 'Persistent Notification',
+        channelDescription: 'Showing permanent notification',
+        importance: NotificationImportance.Max,
+        channelShowBadge: true,
+      )
+    ],
+  );
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
   runApp(const MyApp());
 }
 
@@ -48,6 +71,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => PieChartPov(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SettingsPov(),
         )
       ],
       child: MaterialApp(

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mvelopes/view/settings/settings_screen.dart';
+import 'package:mvelopes/viewmodel/settings/settings_pov.dart';
+import 'package:provider/provider.dart';
 import '../../../utilities/color/colors.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -13,8 +16,8 @@ class AppBarWidget extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'WelcomeBack',
                 style: TextStyle(
                   fontSize: 18,
@@ -22,16 +25,38 @@ class AppBarWidget extends StatelessWidget {
                   color: blackColor,
                 ),
               ),
-              Text(
-                'Mushthak!',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: blackColor,
-                  fontSize: 18,
-                ),
-              )
+              Consumer<SettingsPov>(
+                builder: (context, value, child) {
+                  return Text(
+                    '${value.userName} !',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: blackColor,
+                      fontSize: 18,
+                    ),
+                  );
+                },
+              ),
             ],
           ),
+          const Spacer(),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Settingsscreen(),
+                ),
+              );
+            },
+            child: const CircleAvatar(
+              backgroundColor: whiteColor,
+              backgroundImage: AssetImage('assets/image/man.png'),
+            ),
+          ),
+          const SizedBox(
+            width: 16,
+          )
         ],
       ),
     );

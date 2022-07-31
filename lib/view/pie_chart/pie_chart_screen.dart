@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../utilities/color/colors.dart';
+import '../../utilities/style/styles.dart';
 import '../../viewmodel/pie_chart/pie_chart_pov.dart';
 
 class ChartScreen extends StatelessWidget {
@@ -13,15 +14,19 @@ class ChartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transaction Statistics'),
+        title: Text(
+          'Transaction Statistics',
+          style: gFontsprimary(sz: 22, cr: whiteColor),
+        ),
         centerTitle: true,
         backgroundColor: indigColor,
         actions: [
           IconButton(
-              onPressed: () {
-                context.read<PieChartPov>().pickDate(context);
-              },
-              icon: const Icon(Icons.sort)),
+            onPressed: () {
+              context.read<PieChartPov>().pickDate(context);
+            },
+            icon: const Icon(Icons.sort),
+          ),
           //
         ],
       ),

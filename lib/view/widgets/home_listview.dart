@@ -7,6 +7,7 @@ import 'package:mvelopes/viewmodel/add_edit/hive_impl.dart';
 import 'package:mvelopes/viewmodel/home/home_pov.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/color/colors.dart';
+import '../../utilities/style/styles.dart';
 
 class HomeListView extends StatelessWidget {
   final bool checkLength;
@@ -35,13 +36,13 @@ class HomeListView extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                  Text(
                     'No Transaction Data',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: pinkColor,
-                      letterSpacing: 1,
-                      fontSize: 16,
+                    style: gFontsprimary(
+                      sz: 20,
+                      cr: indigColor,
+                      we: FontWeight.bold,
+                      ls: 1,
                     ),
                   )
                 ],
@@ -112,7 +113,10 @@ class HomeListView extends StatelessWidget {
                                   child: Text(
                                     context.read<HomePov>().dateSplit(data.dateTime),
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(color: whiteColor, fontWeight: FontWeight.bold),
+                                    style: gFontsprimary(
+                                      cr: whiteColor,
+                                      we: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
@@ -124,7 +128,13 @@ class HomeListView extends StatelessWidget {
                                     Text(
                                       data.notes,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontSize: 18, fontFamily: 'JosefinSans'),
+                                      style: gFontsprimary(
+                                        sz: 18,
+                                        cr: blackColor,
+                                        we: FontWeight.w600,
+                                        ls: .6,
+                                      ),
+                                      maxLines: 1,
                                     ),
                                     Lw().space(h: 5),
                                     Text(

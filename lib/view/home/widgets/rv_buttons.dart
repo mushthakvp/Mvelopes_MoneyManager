@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvelopes/utilities/style/styles.dart';
 import 'package:mvelopes/view/view_more/view_more_screen.dart';
 import '../../../utilities/color/colors.dart';
 
@@ -12,12 +13,12 @@ class RvButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
+          Text(
             'Recent',
-            style: TextStyle(
-              fontSize: 16,
-              color: pinkColor,
-              fontFamily: 'JosefinSans',
+            style: gFontsprimary(
+              cr: pinkColor,
+              we: FontWeight.bold,
+              ls: 1,
             ),
           ),
           GestureDetector(
@@ -29,14 +30,12 @@ class RvButtons extends StatelessWidget {
                 ),
               );
             }),
-            child: const Text(
+            child: Text(
               'ViewMore',
-              style: TextStyle(
-                fontSize: 16,
-                color: indigColor,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
-                fontFamily: 'JosefinSans',
+              style: gFontsprimary(
+                cr: indigColor,
+                we: FontWeight.bold,
+                ls: 1,
               ),
             ),
           )
