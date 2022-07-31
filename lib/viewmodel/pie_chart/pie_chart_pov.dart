@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:mvelopes/view/pie_chart/pie_chart_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../model/add_edit/model/add_edit.dart';
-import '../add_edit/hive_impl.dart';
 
 class Chartdata {
   String? categories;
@@ -18,9 +17,8 @@ class PieChartPov extends ChangeNotifier {
   List<Chartdata> chartData = [];
 
   PieChartPov() {
-    ChartScreen().demoFunction();
-    chartData = listOfData(todayListNotifier);
     tooltipBehavior = TooltipBehavior(enable: true);
+    getdata();
   }
 
   List<TransationModel> todayListNotifier = [];
@@ -64,17 +62,48 @@ class PieChartPov extends ChangeNotifier {
     return returnData;
   }
 
+  final String dbName = 'Tmodeldb';
+
+  Future<List<TransationModel>> getDeatails() async {
+    final obj = await Hive.openBox<TransationModel>(dbName);
+    return obj.values.toList();
+  }
+
   DateTime selectedmonth = DateTime.now();
 
-  getdata(BuildContext context) async {
+  getdata() async {
+    final list = await getDeatails();
     String format = DateFormat('yMMMM').format(selectedmonth);
+
     todayListNotifier.clear();
-    Future.forEach(context.read<HiveImpl>().recentList, (TransationModel element) {
-      String formatData = DateFormat('yMMMM').format(element.dateTime);
-      if (format == formatData) {
-        todayListNotifier.add(element);
-      }
-      notifyListeners();
-    });
+    Future.forEach(
+      list,
+      (TransationModel element) {
+        String formatData = DateFormat('yMMMM').format(element.dateTime);
+        if (format == formatData) {
+          todayListNotifier.add(element);
+        }
+      },
+    );
+    await getChartData();
+  }
+
+  getChartData() {
+    chartData = listOfData(todayListNotifier);
+    notifyListeners();
+  }
+
+  pickDate(context) async {
+    final selected = await showMonthYearPicker(
+      context: context,
+      initialDate: selectedmonth,
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2030),
+    );
+
+    selectedmonth = selected!;
+
+    await getdata();
+    notifyListeners();
   }
 }
