@@ -12,7 +12,6 @@ class ChartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Chartdata> chartData = context.read<PieChartPov>().listOfData(context.read<PieChartPov>().todayListNotifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Transaction Statistics'),
@@ -28,7 +27,7 @@ class ChartScreen extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: chartData.isEmpty
+        child: context.read<PieChartPov>().chartData.isEmpty
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +61,7 @@ class ChartScreen extends StatelessWidget {
                         isVisible: true,
                         labelIntersectAction: LabelIntersectAction.shift,
                       ),
-                      dataSource: chartData,
+                      dataSource: context.read<PieChartPov>().chartData,
                       xValueMapper: (Chartdata data, _) => data.categories,
                       yValueMapper: (Chartdata data, _) => data.amount,
                       explode: true,
@@ -73,8 +72,8 @@ class ChartScreen extends StatelessWidget {
     );
   }
 
-  demoFunction() {
-    Provider.of<PieChartPov>(scafoldKey.currentContext!, listen: false).getdata(scafoldKey.currentContext!);
+  demoFunction() async {
+    await Provider.of<PieChartPov>(scafoldKey.currentContext!, listen: false).getdata(scafoldKey.currentContext!);
   }
 
   // _pickDate(context) async {

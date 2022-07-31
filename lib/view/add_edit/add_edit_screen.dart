@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mvelopes/model/add_edit/model/add_edit.dart';
 import 'package:mvelopes/viewmodel/add_edit/add_edit_pov.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/color/colors.dart';
 import 'widgets/textfield.dart';
 
 class AddEditScreen extends StatelessWidget {
-  const AddEditScreen({Key? key}) : super(key: key);
+  final ScreenType type;
+  final TransationModel? data;
+  const AddEditScreen({
+    Key? key,
+    required this.type,
+    this.data,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    checkScreen(context);
     return GestureDetector(
       onTap: (() {
         FocusScope.of(context).unfocus();
@@ -37,17 +45,30 @@ class AddEditScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const TextFieldCustomWidget(),
+            TextFieldCustomWidget(type: type, data: data),
           ],
         ),
       ),
     );
   }
+
+  checkScreen(BuildContext context) {
+    if (type == ScreenType.edit) {
+      context.read<AddEditPov>().amountController.text = data!.amount.toString();
+      context.read<AddEditPov>().notesController.text = data!.notes.toString();
+      context.read<AddEditPov>().dateNow = data!.dateTime;
+      context.read<AddEditPov>().dropName = context.read<AddEditPov>().categoryConvert(data!.type);
+    }
+  }
 }
 
 class TextFieldCustomWidget extends StatelessWidget {
+  final TransationModel? data;
+  final ScreenType type;
   const TextFieldCustomWidget({
     Key? key,
+    required this.type,
+    this.data,
   }) : super(key: key);
 
   @override
@@ -117,8 +138,8 @@ class TextFieldCustomWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width * .84,
           child: ElevatedButton(
             onPressed: () {
+              checkButton(context);
               FocusScope.of(context).unfocus();
-              context.read<AddEditPov>().submitDetails(context);
             },
             style: ElevatedButton.styleFrom(
               primary: indigColor,
@@ -140,6 +161,17 @@ class TextFieldCustomWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  checkButton(context) {
+    switch (type) {
+      case ScreenType.edit:
+        Provider.of<AddEditPov>(context, listen: false).updateDetails(context, data!.id);
+        break;
+      case ScreenType.add:
+        Provider.of<AddEditPov>(context, listen: false).submitDetails(context);
+        break;
+    }
   }
 }
 
@@ -221,4 +253,9 @@ class DropDownMenuWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+enum ScreenType {
+  add,
+  edit,
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mvelopes/view/add_edit/add_edit_screen.dart';
 import 'package:mvelopes/view/widgets/delete_widget.dart';
 import 'package:mvelopes/viewmodel/add_edit/hive_impl.dart';
 import 'package:mvelopes/viewmodel/home/home_pov.dart';
@@ -20,7 +21,7 @@ class HomeListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HiveImpl>(
       builder: (BuildContext context, value, Widget? _) {
-        return value.recentList.isEmpty
+        return returnList(idx, context) <= 0
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,7 +86,15 @@ class HomeListView extends StatelessWidget {
                               ),
                               SlidableAction(
                                 onPressed: (context) {
-                                  //  Lf().nextPage(context: context, screen: Editscreen(data: data),);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AddEditScreen(
+                                        type: ScreenType.edit,
+                                        data: data,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 icon: Icons.edit,
                                 label: 'Edit',

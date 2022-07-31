@@ -15,8 +15,11 @@ class Chartdata {
 class PieChartPov extends ChangeNotifier {
   late TooltipBehavior tooltipBehavior;
 
+  List<Chartdata> chartData = [];
+
   PieChartPov() {
     ChartScreen().demoFunction();
+    chartData = listOfData(todayListNotifier);
     tooltipBehavior = TooltipBehavior(enable: true);
   }
 

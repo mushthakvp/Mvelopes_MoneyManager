@@ -12,9 +12,27 @@ class AddEditPov extends ChangeNotifier {
   String? dropName;
   late CategoryType globalType;
 
+  @override
+  void dispose() {
+    notesController.text = '';
+    super.dispose();
+  }
+
   changeDropName({required var dropName}) {
     this.dropName = dropName;
     notifyListeners();
+  }
+
+  categoryConvert(CategoryType data) {
+    if (data == CategoryType.income) {
+      return 'Income';
+    } else if (data == CategoryType.expense) {
+      return 'Expense';
+    } else if (data == CategoryType.borrow) {
+      return 'Borrow';
+    } else if (data == CategoryType.lend) {
+      return 'Lend';
+    }
   }
 
   categoryTypeChecking(var data) {
@@ -70,6 +88,41 @@ class AddEditPov extends ChangeNotifier {
       );
 
       await Provider.of<HiveImpl>(context, listen: false).addDetails(allData);
+      context.read<HiveImpl>().refreshUi();
+      notesController.text = '';
+      amountController.text = '';
+      Navigator.of(context).pop();
+    }
+  }
+
+  updateDetails(BuildContext context, String id) async {
+    final note = notesController.text.trim();
+    final price = amountController.text.trim();
+    final amount = double.tryParse(price);
+    final category = dropName ?? '';
+    if (note.isEmpty || price.isEmpty || amount!.isNegative || category.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          padding: EdgeInsets.all(14),
+          elevation: 6,
+          backgroundColor: indigColor,
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            'Please Fill Fields',
+            style: TextStyle(fontSize: 14),
+          ),
+        ),
+      );
+    } else {
+      final allData = TransationModel(
+        notes: note,
+        amount: amount,
+        dateTime: dateNow,
+        type: globalType,
+        id: id,
+      );
+
+      await Provider.of<HiveImpl>(context, listen: false).updataeDetails(allData);
       context.read<HiveImpl>().refreshUi();
       notesController.text = '';
       amountController.text = '';
