@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mvelopes/view/add_edit/add_edit_screen.dart';
 import 'package:mvelopes/view/widgets/delete_widget.dart';
 import 'package:mvelopes/viewmodel/add_edit/hive_impl.dart';
 import 'package:mvelopes/viewmodel/home/home_pov.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/color/colors.dart';
 import '../../utilities/style/styles.dart';
+import '../add_edit_screen/add_edit_screen.dart';
 
 class HomeListView extends StatelessWidget {
   final bool checkLength;

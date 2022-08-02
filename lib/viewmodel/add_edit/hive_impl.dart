@@ -76,6 +76,8 @@ class HiveImpl extends AddEditService with ChangeNotifier {
       }
     });
 
+    recentTotal = (incomeTotal + lendTotal) - (borrowTotal + expenseTotal);
+
     notifyListeners();
   }
 }

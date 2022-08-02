@@ -89,7 +89,7 @@ class AddEditPov extends ChangeNotifier {
       );
 
       await Provider.of<HiveImpl>(context, listen: false).addDetails(allData);
-      context.read<HiveImpl>().refreshUi();
+      await context.read<HiveImpl>().refreshUi();
       notesController.text = '';
       amountController.text = '';
       await context.read<SettingsPov>().notificationAdd(
